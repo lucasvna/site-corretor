@@ -19,46 +19,63 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import fotoThiago from "../assets/foto-thiago.jpeg";
 
 import { Button } from "@/components/ui/button";
 
+const SITE_URL = "https://thiago-abrantes.vercel.app/";
 const WHATSAPP = "https://wa.me/5583991163599";
 const WHATSAPP_MCMV =
   "https://wa.me/5583991163599?text=Ol%C3%A1%2C%20Thiago!%20Quero%20saber%20mais%20sobre%20o%20Minha%20Casa%20Minha%20Vida.";
 
 const navigation = [
   ["Início", "#inicio"],
-  ["Minha Casa Minha Vida", "#minha-casa-minha-vida"],
+  ["Minha Casa, Minha Vida", "#minha-casa-minha-vida"],
   ["Como funciona", "#como-funciona"],
   ["Sobre o corretor", "#sobre"],
+  ["Dúvidas", "#duvidas"],
 ] as const;
 
 const benefits = [
-  { icon: Search, title: "Entenda suas possibilidades", description: "Tire suas dúvidas sobre os requisitos do programa." },
-  { icon: HandCoins, title: "Conheça as condições", description: "Descubra quais condições de financiamento e eventuais benefícios podem se aplicar ao seu perfil." },
+  { icon: Search, title: "Entenda suas possibilidades", description: "Entenda como a renda familiar e as características do imóvel influenciam o enquadramento no programa." },
+  { icon: HandCoins, title: "Conheça as condições", description: "Saiba quais condições de financiamento e possíveis subsídios podem se aplicar ao seu perfil, conforme as regras vigentes." },
   { icon: HeartHandshake, title: "Tenha orientação", description: "Conte com apoio para compreender a documentação e os próximos passos." },
 ];
 
 const steps = [
-  { icon: Banknote, title: "Simulação", description: "Entenda suas possibilidades de financiamento e planeje uma compra de acordo com o seu orçamento." },
-  { icon: Home, title: "Escolha do imóvel", description: "Conheça opções compatíveis com o seu perfil e encontre um lugar que combine com você." },
-  { icon: ClipboardCheck, title: "Documentação e análise", description: "Organize os documentos necessários e acompanhe a análise de crédito pela instituição financeira." },
-  { icon: FileCheck2, title: "Contrato e formalização", description: "Com a aprovação e as condições definidas, avance para a assinatura e os procedimentos de formalização." },
+  { icon: Banknote, title: "Simulação", description: "Estime a entrada e as parcelas para planejar a compra. A simulação não garante a aprovação do financiamento." },
+  { icon: Home, title: "Escolha do imóvel", description: "Compare localização, características e valor do imóvel em João Pessoa, considerando seu orçamento e sua rotina." },
+  { icon: ClipboardCheck, title: "Documentação e análise", description: "Reúna os documentos para a análise de crédito. O banco também avalia o imóvel e verifica as condições da operação." },
+  { icon: FileCheck2, title: "Contrato e formalização", description: "Após as aprovações, confira as condições, assine o contrato e siga as etapas de registro no cartório de imóveis." },
   { icon: KeyRound, title: "Entrega das chaves", description: "Após a conclusão das etapas e o cumprimento das condições e prazos do contrato, é hora de receber as chaves." },
 ];
 
+const questions = [
+  { question: "Por onde começar a compra de um imóvel em João Pessoa?", answer: "Defina seu orçamento, a região onde deseja morar e as características essenciais do imóvel. Se pretende financiar, faça uma simulação antes de escolher. Thiago pode ajudar você a organizar essa busca e entender os próximos passos." },
+  { question: "Posso financiar um imóvel pelo Minha Casa, Minha Vida?", answer: "O enquadramento depende da renda familiar, do imóvel e dos demais requisitos do programa. Na modalidade financiada, o banco analisa o crédito e as condições da operação. Thiago orienta sobre a compra; a aprovação do financiamento cabe à instituição financeira." },
+  { question: "O Minha Casa, Minha Vida garante subsídio ou entrada zero?", answer: "Não. Os subsídios dependem do enquadramento da família e das regras vigentes. O valor da entrada varia conforme o preço e a avaliação do imóvel, o crédito aprovado e os benefícios aplicáveis. Confirme essas condições na análise da proposta." },
+  { question: "O que considerar ao escolher onde morar em João Pessoa?", answer: "Compare o trajeto até o trabalho, o acesso a transporte, escolas e serviços, além das características do imóvel. Inclua no orçamento despesas como condomínio, IPTU e custos de contratação. Conte suas prioridades ao corretor para orientar a busca." },
+];
 export const Route = createFileRoute("/")({
   head: () => ({
+    links: [{ rel: "canonical", href: SITE_URL }],
     meta: [
-      { title: "Thiago Abrantes | Corretor de Imóveis — CRECI 5760-f" },
-      { name: "description", content: "Orientação para comprar seu imóvel com Thiago Abrantes, corretor de imóveis. Tire suas dúvidas sobre a compra da casa própria e o Minha Casa Minha Vida. Fale pelo WhatsApp." },
-      { property: "og:title", content: "Thiago Abrantes | Corretor de Imóveis — CRECI 5760-f" },
-      { property: "og:description", content: "Orientação para comprar seu imóvel com Thiago Abrantes. Tire suas dúvidas sobre a casa própria e o Minha Casa Minha Vida." },
+      { title: "Corretor de imóveis em João Pessoa | Thiago Abrantes" },
+      { name: "description", content: "Compre seu imóvel em João Pessoa, PB, com Thiago Abrantes. Orientação sobre financiamento e Minha Casa, Minha Vida. Fale com o corretor pelo WhatsApp." },
+      { property: "og:title", content: "Corretor de imóveis em João Pessoa | Thiago Abrantes" },
+      { property: "og:description", content: "Encontre seu imóvel em João Pessoa, Paraíba, com orientação de Thiago Abrantes sobre a compra, o financiamento e o Minha Casa, Minha Vida." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:locale", content: "pt_BR" },
+      { property: "og:site_name", content: "Thiago Abrantes" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: new URL(fotoThiago, SITE_URL).href },
+      { property: "og:image:alt", content: "Thiago Abrantes, corretor de imóveis em João Pessoa" },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Corretor de imóveis em João Pessoa | Thiago Abrantes" },
+      { name: "twitter:description", content: "Orientação para comprar seu imóvel em João Pessoa, PB, e entender o financiamento e o Minha Casa, Minha Vida." },
+      { name: "twitter:image", content: new URL(fotoThiago, SITE_URL).href },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+
   }),
   component: Index,
 });
@@ -81,7 +98,7 @@ function Index() {
         <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 lg:px-8">
           <a href="#inicio" className="min-w-0 focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-ring" aria-label="Ir para o início">
             <span className="block truncate font-display text-2xl font-bold leading-none">Thiago Abrantes</span>
-            <span className="mt-1 block truncate text-[0.68rem] font-medium uppercase tracking-[0.14em] text-primary-foreground/65">Corretor de imóveis | CRECI 5760-f</span>
+            <span className="mt-1 block truncate text-[0.68rem] font-medium uppercase tracking-[0.14em] text-primary-foreground/65">Corretor de imóveis | CRECI 5760-F</span>
           </a>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
             {navigation.map(([label, href]) => <a key={href} href={href} className="text-sm font-medium text-primary-foreground/75 transition-colors hover:text-accent focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-ring">{label}</a>)}
@@ -101,11 +118,20 @@ function Index() {
         )}
       </header>
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Thiago Abrantes",
+        jobTitle: "Corretor de imóveis",
+        url: SITE_URL,
+        image: new URL(fotoThiago, SITE_URL).href,
+        telephone: "+55-83-99116-3599",
+        workLocation: { "@type": "Place", name: "João Pessoa, Paraíba, Brasil" },
+      }).replace(/</g, "\u003c") }} />
       <main>
         <section id="inicio" className="relative flex min-h-[720px] items-center overflow-hidden bg-primary pt-20 md:min-h-[780px]">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -left-1/4 -top-1/4 size-[70vw] rounded-full bg-primary-foreground/[0.03] blur-3xl" />
-            <div className="absolute -bottom-1/3 -right-1/4 size-[60vw] rounded-full bg-primary-foreground/[0.04] blur-3xl" />
+            <div className="hero-lighting absolute inset-0" aria-hidden="true" />
             <svg className="absolute inset-0 size-full" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
               <g fill="none" strokeLinecap="round">
                 <path d="M-80 640C180 560 320 420 560 400s380 90 620 10 340-210 420-300" stroke="currentColor" className="text-primary-foreground/10" strokeWidth="1.2" />
@@ -119,9 +145,9 @@ function Index() {
 
           <div className="relative mx-auto w-full max-w-7xl px-5 py-24 lg:px-8 lg:py-32">
             <div className="max-w-3xl text-primary-foreground">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent"><BadgeCheck className="size-4" /> Thiago Abrantes • CRECI 5760-f</div>
-              <h1 className="font-display text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-8xl">Seu próximo capítulo começa com a casa própria.</h1>
-              <p className="mt-7 max-w-2xl text-base leading-8 text-primary-foreground/75 sm:text-lg">Conte com Thiago Abrantes para entender suas possibilidades, encontrar o imóvel ideal e receber orientação em cada etapa da compra.</p>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent"><BadgeCheck className="size-4" /> Thiago Abrantes • CRECI 5760-F</div>
+              <h1 className="font-display text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-8xl">Sua casa própria em João Pessoa começa aqui.</h1>
+              <p className="mt-7 max-w-2xl text-base leading-8 text-primary-foreground/75 sm:text-lg">Conte com Thiago Abrantes, corretor de imóveis em João Pessoa, na Paraíba, para encontrar um imóvel que combine com sua rotina e seu orçamento. Receba orientação da escolha à entrega das chaves.</p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <WhatsAppLink className="w-full sm:w-auto">Quero conquistar meu imóvel <ArrowRight /></WhatsAppLink>
                 <Button asChild variant="heroOutline" size="lg" className="w-full sm:w-auto"><a href="#como-funciona">Entenda como funciona <ChevronRight /></a></Button>
@@ -134,10 +160,10 @@ function Index() {
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
               <div>
-                <SectionLabel>Minha Casa Minha Vida</SectionLabel>
-                <h2 className="mt-4 max-w-xl font-display text-4xl font-bold leading-tight text-primary sm:text-5xl">Sua casa própria pode estar mais perto do que você imagina.</h2>
+                <SectionLabel>Minha Casa, Minha Vida</SectionLabel>
+                <h2 className="mt-4 max-w-xl font-display text-4xl font-bold leading-tight text-primary sm:text-5xl">Minha Casa, Minha Vida em João Pessoa</h2>
               </div>
-              <p className="max-w-2xl text-base leading-8 text-muted-foreground lg:justify-self-end lg:text-lg">Quer saber se você pode comprar pelo Minha Casa Minha Vida? Receba orientação para entender as possibilidades de financiamento e encontrar opções que façam sentido para a sua realidade.</p>
+              <p className="max-w-2xl text-base leading-8 text-muted-foreground lg:justify-self-end lg:text-lg">Quer comprar seu imóvel em João Pessoa pelo Minha Casa, Minha Vida? Entenda os critérios da modalidade financiada e as condições que podem se aplicar à sua renda familiar e ao imóvel escolhido.</p>
             </div>
             <div className="mt-14 grid gap-5 md:grid-cols-3">
               {benefits.map(({ icon: Icon, title, description }, index) => (
@@ -159,7 +185,7 @@ function Index() {
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <SectionLabel light>Como funciona</SectionLabel>
-              <h2 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl">Da simulação à entrega das chaves, um passo de cada vez.</h2>
+              <h2 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl">Como comprar seu imóvel com financiamento</h2>
             </div>
             <div className="relative mt-16 grid gap-5 md:grid-cols-5">
               <div className="absolute left-[10%] right-[10%] top-9 hidden h-px bg-line md:block" />
@@ -177,19 +203,19 @@ function Index() {
         <section id="sobre" className="py-20 sm:py-28">
           <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:px-8">
             <div className="relative mx-auto w-full max-w-lg overflow-hidden rounded-lg bg-primary shadow-soft">
-              <div className="aspect-[4/5] p-6 sm:p-10">
-                <div className="relative flex size-full items-center justify-center overflow-hidden border border-primary-foreground/15">
-                  <div className="absolute inset-5 border border-accent/25" /><div className="absolute -right-16 -top-16 size-64 rounded-full border border-accent/15" /><div className="absolute -bottom-24 -left-20 size-72 rounded-full border border-primary-foreground/10" />
-                  <div className="relative text-center"><span className="font-display text-8xl font-bold text-accent sm:text-9xl">TA</span><span className="mt-5 block text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/55">Thiago Abrantes</span></div>
-                </div>
-              </div>
-              <div className="absolute bottom-0 right-0 bg-accent px-5 py-3 text-xs font-bold uppercase tracking-[0.12em] text-accent-foreground">CRECI 5760-f</div>
+              <img
+                src={fotoThiago}
+                alt="Thiago Abrantes, corretor de imóveis em João Pessoa, Paraíba"
+                className="aspect-[4/5] w-full object-cover object-top"
+                loading="lazy"
+              />
+              <div className="absolute bottom-0 right-0 bg-accent px-5 py-3 text-xs font-bold uppercase tracking-[0.12em] text-accent-foreground">CRECI 5760-F</div>
             </div>
             <div>
               <SectionLabel>Sobre o corretor</SectionLabel>
               <h2 className="mt-4 font-display text-4xl font-bold text-primary sm:text-6xl">Conheça Thiago Abrantes</h2>
-              <p className="mt-3 font-semibold text-accent-strong">Corretor de imóveis | CRECI 5760-f</p>
-              <div className="mt-7 space-y-4 text-base leading-8 text-muted-foreground sm:text-lg"><p>Comprar um imóvel é uma decisão importante. Meu compromisso é oferecer um atendimento próximo, esclarecer suas dúvidas e orientar você em cada etapa, respeitando suas necessidades e seu momento de vida.</p><p>Da primeira conversa à entrega das chaves, o objetivo é tornar sua jornada mais clara, organizada e tranquila.</p></div>
+              <p className="mt-3 font-semibold text-accent-strong">Corretor de imóveis em João Pessoa, PB | CRECI 5760-F</p>
+              <div className="mt-7 space-y-4 text-base leading-8 text-muted-foreground sm:text-lg"><p>Sou Thiago Abrantes, corretor de imóveis em João Pessoa, na Paraíba. Meu compromisso é ouvir o que você procura, esclarecer suas dúvidas e orientar sua compra com atenção ao seu orçamento e ao seu momento de vida.</p><p>Na busca pelo seu imóvel, vamos considerar o que faz diferença no dia a dia: localização, acesso ao trabalho, serviços próximos e necessidades da sua família. Da primeira conversa à entrega das chaves, você conta com um atendimento próximo e claro.</p></div>
               <ul className="mt-8 grid gap-3 sm:grid-cols-3">
                 {["Atendimento personalizado", "Clareza em cada etapa", "Foco nas suas necessidades"].map((item) => <li key={item} className="flex items-start gap-2 border-t border-border pt-4 text-sm font-semibold text-primary"><Check className="mt-0.5 size-4 shrink-0 text-accent-strong" />{item}</li>)}
               </ul>
@@ -198,11 +224,26 @@ function Index() {
           </div>
         </section>
 
+        <section id="duvidas" className="bg-surface py-20 sm:py-24">
+          <div className="mx-auto max-w-4xl px-5 lg:px-8">
+            <SectionLabel>Dúvidas frequentes</SectionLabel>
+            <h2 className="mt-4 font-display text-4xl font-bold text-primary sm:text-5xl">Dúvidas sobre comprar um imóvel em João Pessoa</h2>
+            <div className="mt-10 divide-y divide-border">
+              {questions.map(({ question, answer }) => (
+                <details key={question} className="group py-5">
+                  <summary className="cursor-pointer text-lg font-semibold text-primary focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-ring">{question}</summary>
+                  <p className="mt-4 leading-7 text-muted-foreground">{answer}</p>
+                </details>
+              ))}
+            </div>
+            <p className="mt-6 text-sm leading-6 text-muted-foreground">Consulte também as informações oficiais da <a href="https://www.caixa.gov.br/voce/habitacao/minha-casa-minha-vida/urbana/Paginas/default.aspx" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-primary">CAIXA sobre o Minha Casa, Minha Vida</a>.</p>
+          </div>
+        </section>
         <section className="bg-primary py-20 text-primary-foreground sm:py-24">
           <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
             <Sparkles className="mx-auto size-8 text-accent" />
             <h2 className="mt-6 font-display text-4xl font-bold sm:text-6xl">Vamos conversar sobre a sua casa própria?</h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/70">Dê o primeiro passo. Fale com Thiago Abrantes pelo WhatsApp e tire suas dúvidas.</p>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/70">Conte em qual região de João Pessoa você quer morar e o que procura no seu imóvel. Fale com Thiago Abrantes pelo WhatsApp para entender os próximos passos.</p>
             <WhatsAppLink className="mt-8">Iniciar conversa no WhatsApp <ArrowRight /></WhatsAppLink>
           </div>
         </section>
@@ -210,7 +251,7 @@ function Index() {
 
       <footer className="bg-background pb-28 pt-12 sm:pb-12">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-[1fr_auto] md:items-end lg:px-8">
-          <div><p className="font-display text-2xl font-bold text-primary">Thiago Abrantes — Corretor de imóveis</p><p className="mt-2 text-sm text-muted-foreground">CRECI 5760-f</p><a href={WHATSAPP} target="_blank" rel="noreferrer" className="mt-1 inline-block text-sm font-semibold text-primary hover:text-accent-strong">WhatsApp: (83) 99116-3599</a></div>
+          <div><p className="font-display text-2xl font-bold text-primary">Thiago Abrantes — Corretor de imóveis</p><p className="mt-2 text-sm text-muted-foreground">João Pessoa, Paraíba · CRECI 5760-F</p><a href={WHATSAPP} target="_blank" rel="noreferrer" className="mt-1 inline-block text-sm font-semibold text-primary hover:text-accent-strong">WhatsApp: (83) 99116-3599</a></div>
           <nav className="flex flex-wrap gap-x-5 gap-y-3" aria-label="Navegação do rodapé">{navigation.map(([label, href]) => <a key={href} href={href} className="text-xs font-semibold text-muted-foreground hover:text-primary">{label}</a>)}</nav>
           <div className="border-t border-border pt-5 text-xs text-muted-foreground md:col-span-2">© {new Date().getFullYear()} Thiago Abrantes. Todos os direitos reservados.</div>
         </div>
