@@ -98,4 +98,4 @@ Se o domínio mudar, atualize:
 
 O endereço definido para o site é `https://thiago-abrantes.vercel.app/`. A integração do repositório e as opções de implantação são administradas no provedor de hospedagem.
 
-A configuração atual utiliza `@lovable.dev/vite-tanstack-config`, cujo build usa Nitro com destino padrão Cloudflare. Ao configurar ou alterar a implantação na Vercel, confira a compatibilidade do destino de build com o ambiente do provedor; executar o build localmente não realiza a publicação.
+A configuração utiliza diretamente os plugins do Vite, TanStack Start, React, Tailwind CSS e Nitro. O Nitro detecta o ambiente de hospedagem durante o build, incluindo a Vercel. O build local gera uma saída para Node.js e não publica o site. As dependências são versionadas em `package-lock.json`; use npm para instalá-las.
